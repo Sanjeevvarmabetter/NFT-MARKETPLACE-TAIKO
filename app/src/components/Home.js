@@ -1,16 +1,14 @@
 import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import { Row, Col, Button, Alert, Spinner } from 'react-bootstrap';
-import axios from 'axios';
 
 const Home = ({ mergedContract }) => {
-
   const [loading, setLoading] = useState(true);
   const [items, setItems] = useState([]);
   const [error, setError] = useState(null);
+  const [buying, setBuying] = useState(false);  
   const DECIMALS = 18;
 
-  // Load marketplace items
   const loadMarketplaceItems = async () => {
     setLoading(true);
     setError(null);
@@ -47,6 +45,7 @@ const Home = ({ mergedContract }) => {
   };
 
   const buyMarketItem = async (item) => {
+    setBuying(true);  
     try {
       const totalPrice = await mergedContract.getTotalPrice(item.itemId);
       const transaction = await mergedContract.purchaseItem(item.itemId, {
@@ -54,10 +53,12 @@ const Home = ({ mergedContract }) => {
         gasLimit: 500000,
       });
       await transaction.wait();
-      loadMarketplaceItems(); 
+      loadMarketplaceItems();
     } catch (error) {
       console.error("Error purchasing item:", error);
       setError("Failed to purchase item. Please check your wallet or network.");
+    } finally {
+      setBuying(false);  
     }
   };
 
@@ -83,8 +84,8 @@ const Home = ({ mergedContract }) => {
                         <h5 className="card-title">{item.name}</h5>
                         <p className="card-text">{item.description}</p>
                         <p>Price: {item.price} ETH</p>
-                        <Button onClick={() => buyMarketItem(item)} variant="primary" aria-label={`Buy ${item.name} NFT`}>
-                          Buy NFT
+                        <Button onClick={() => buyMarketItem(item)} variant="primary" disabled={buying}>
+                          {buying ? <Spinner animation="border" size="sm" /> : "Buy NFT"}
                         </Button>
                       </div>
                     </div>

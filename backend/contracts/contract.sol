@@ -77,7 +77,7 @@ contract MNFT is ERC721URIStorage {
         Item storage item = items[_itemId]; 
         require(_itemId > 0 && _itemId <= itemCount, "Item doesn't exist");
         require(msg.value >= _totalPrice, "Not enough ether to cover item price");
-
+    require(msg.sender != item.seller, "Seller cannot buy their own item");
         // Transfer funds to the seller
         item.seller.transfer(item.price);
         item.sold = true; // Mark the item as sold

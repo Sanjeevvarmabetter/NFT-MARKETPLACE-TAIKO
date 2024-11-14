@@ -1,24 +1,33 @@
 const { ethers } = require("hardhat");
 
 async function main() {
-const StorageContract = await ethers.getContractFactory("MNFT");
-const storageContract = await StorageContract.deploy();
+    // Set a delay function for cleaner code
+    const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-await storageContract.waitForDeployment();
-const tx = await storageContract.deploymentTransaction();
+    // Deploy contract
+    const StorageContract = await ethers.getContractFactory("MNFT");
+    const storageContract = await StorageContract.deploy();
 
-console.log("Contract deployed successfully.");
-console.log(`Deployer: ${storageContract.runner.address}`);
-console.log(`Deployed to: ${storageContract.target}`);
-console.log(`Transaction hash: ${tx.hash}`);
+    // Wait until deployment is confirmed
+
+    
+    // Add a delay to ensure state consistency on the network
+    await delay(5000); // 5 seconds delay, adjust if needed
+
+    // Attempt to log the deployment details
+    console.log("Contract deployed successfully.");
+    console.log(`Deployer: ${storageContract.runner.address}`);
+    console.log(`Deployed to: ${storageContract.target}`);
+    console.log(`Transaction hash: ${storageContract.deploymentTransaction().hash}`);
 }
 
 main()
-.then(() => process.exit(0))
-.catch(error => {
-    console.error(error);
-    process.exit(1);
-});
+    .then(() => process.exit(0))
+    .catch(error => {
+        console.error(error);
+        process.exit(1);
+    });
+
 
 
 //➜  taiko npx hardhat run --network taiko scripts/deploy.js
