@@ -1,11 +1,11 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import Navigation from './components/Navbar.js';
 import Home from './components/Home.js';
 import Create from './components/Create.js';
 import MyListedItems from './components/MyListeditems.js';
 import MyPurchases from './components/MyPurchase.js';
-import MergedContractAbi from './contracts/MergedContract.json'; // Your merged contract ABI
-import MergedContractAddress from './contracts/MergedContract-address.json'; // Your merged contract address
+import MergedContractAbi from './contracts/MergedContract.json'; 
+import MergedContractAddress from './contracts/MergedContract-address.json'; 
 import { useState } from 'react';
 import { ethers } from "ethers";
 import { Spinner } from 'react-bootstrap';
@@ -34,7 +34,7 @@ function App() {
 
     window.ethereum.on('accountsChanged', async function (accounts) {
       setAccount(accounts[0]);
-      await web3Handler();
+      window.location.reload();      await web3Handler();
     });
 
     // Load merged contract
