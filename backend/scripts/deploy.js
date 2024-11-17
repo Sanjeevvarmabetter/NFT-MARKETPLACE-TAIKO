@@ -39,3 +39,8 @@ Deployed to: 0x1f76ba87fa309A14027e5c9136d35EEB8414001E
 Transaction hash: 0xe5fcdd657e7b0aadf0e63111e0238c3c27e1797400138fbd1b9c0c9a69750af0
 
 */
+
+// Contract deployed successfully.
+// Deployer: 0xEA29129049A8B3fB0b2318b4aF2c2B45f459Eea7
+// Deployed to: 0xE2A8C7006686A9C4317692bDE46e410192bacAb1
+// Transaction hash: 0xe812f4c3ee6a00a899f3b1b8c33b782d8cc2f7b55db719a719eb0a39f4d96fbd
